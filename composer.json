@@ -1,0 +1,29 @@
+{
+    "name": "jasminecms/sitemap",
+    "description": "Sitemap package for Jasmine",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mordi Sacks"
+        }
+    ],
+    "require": {
+        "jasminecms/jasmine": "^1.0",
+        "spatie/laravel-sitemap": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jasmine\\Sitemap\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jasmine\\Sitemap\\JasmineSitemapServiceProvider"
+            ],
+            "aliases": {
+                "JasmineSitemap": "Jasmine\\Sitemap\\Facades\\JasmineSitemap"
+            }
+        }
+    }
+}
