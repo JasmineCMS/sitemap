@@ -19,17 +19,17 @@ class JasmineSitemap
 
     public function registerRoute($url, array $params = [], ?\Closure $cb = null)
     {
-        $this->urls[$url] = [$params, $cb];
+        $this->urls[$url . http_build_query($params)] = ['url' => $url, 'params' => $params, 'cb' => $cb];
     }
 
     public function generate()
     {
         $sm = Sitemap::create();
 
-        foreach ($this->urls as $url => $item) {
-            $url = Url::create(str_starts_with($url, 'http') ? $url
-                : route($url, $item[0]));
-            $item[1] && $item[1]($url);
+        foreach ($this->urls as $item) {
+            $url = Url::create(str_starts_with($item['url'], 'http') ? $item['url']
+                : route($item['url'], $item['params']));
+            $item['cb'] && $item['cb']($url);
             $sm->add($url);
         }
 
